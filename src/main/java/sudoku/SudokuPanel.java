@@ -173,6 +173,26 @@ public class SudokuPanel extends JPanel {
 			}
 			else if(e.getKeyCode() == KeyEvent.VK_BACK_SPACE || e.getKeyCode() == KeyEvent.VK_DELETE) {
 				messageFromNumActionListener("");
+			} else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+				if (currentlySelectedCol > 0) {
+					currentlySelectedCol--;
+					repaint();
+				}
+			} else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+				if (currentlySelectedCol < puzzle.getNumColumns() - 1) {
+					currentlySelectedCol++;
+					repaint();
+				}
+			} else if (e.getKeyCode() == KeyEvent.VK_UP) {
+				if (currentlySelectedRow > 0) {
+					currentlySelectedRow--;
+					repaint();
+				}
+			} else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+				if (currentlySelectedRow < puzzle.getNumRows() - 1) {
+					currentlySelectedRow++;
+					repaint();
+				}
 			}
 		}
 	}
