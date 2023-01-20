@@ -120,6 +120,13 @@ public class SudokuPanel extends JPanel {
 			repaint();
 		}
 	}
+
+	public void clearSelectedSlot() {
+		if (puzzle.isSlotMutable(currentlySelectedRow, currentlySelectedCol)) {
+			puzzle.makeSlotEmpty(currentlySelectedRow, currentlySelectedCol);
+			repaint();
+		}
+	}
 	
 	public class NumActionListener implements ActionListener {
 		@Override
@@ -172,7 +179,7 @@ public class SudokuPanel extends JPanel {
 				messageFromNumActionListener("9");
 			}
 			else if(e.getKeyCode() == KeyEvent.VK_BACK_SPACE || e.getKeyCode() == KeyEvent.VK_DELETE) {
-				messageFromNumActionListener("");
+				clearSelectedSlot();
 			} else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
 				if (currentlySelectedCol > 0) {
 					currentlySelectedCol--;
