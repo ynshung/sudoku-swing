@@ -52,7 +52,7 @@ public class SudokuFrame extends JFrame {
 		windowPanel.setPreferredSize(new Dimension(800,600));
 		
 		buttonSelectionPanel = new JPanel();
-		buttonSelectionPanel.setPreferredSize(new Dimension(90,500));
+		buttonSelectionPanel.setPreferredSize(new Dimension(100,500));
 
 		sPanel = new SudokuPanel();
 		
@@ -70,7 +70,7 @@ public class SudokuFrame extends JFrame {
 		buttonSelectionPanel.removeAll();
 		for(String value : generatedPuzzle.getValidValues()) {
 			JButton b = new JButton(value);
-			b.setPreferredSize(new Dimension(40,40));
+			b.setPreferredSize(new Dimension(45,45));
 			b.addActionListener(sPanel.new NumActionListener());
 			buttonSelectionPanel.add(b);
 		}
