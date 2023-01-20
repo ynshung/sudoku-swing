@@ -180,6 +180,15 @@ public class SudokuPanel extends JPanel {
 			}
 			else if(e.getKeyCode() == KeyEvent.VK_BACK_SPACE || e.getKeyCode() == KeyEvent.VK_DELETE) {
 				clearSelectedSlot();
+			}
+			else if(e.getKeyCode() == KeyEvent.VK_A) {
+				messageFromNumActionListener("A");
+			}
+			else if(e.getKeyCode() == KeyEvent.VK_B) {
+				messageFromNumActionListener("B");
+			}
+			else if(e.getKeyCode() == KeyEvent.VK_C) {
+				messageFromNumActionListener("C");
 			} else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
 				if (currentlySelectedCol > 0) {
 					currentlySelectedCol--;
