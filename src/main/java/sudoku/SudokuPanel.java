@@ -6,9 +6,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.awt.font.FontRenderContext;
 
 import javax.swing.JButton;
@@ -28,6 +26,7 @@ public class SudokuPanel extends JPanel {
 	public SudokuPanel() {
 		this.setPreferredSize(new Dimension(540,450));
 		this.addMouseListener(new SudokuPanelMouseAdapter());
+		this.addKeyListener(new SudokuPanelKeyListener());
 		this.puzzle = new SudokuGenerator().generateRandomSudoku(SudokuPuzzleType.NINEBYNINE);
 		currentlySelectedCol = -1;
 		currentlySelectedRow = -1;
@@ -112,6 +111,7 @@ public class SudokuPanel extends JPanel {
 			g2d.setColor(new Color(0.0f,0.0f,1.0f,0.3f));
 			g2d.fillRect(currentlySelectedCol * slotWidth,currentlySelectedRow * slotHeight,slotWidth,slotHeight);
 		}
+		this.requestFocusInWindow();
 	}
 	
 	public void messageFromNumActionListener(String buttonValue) {
@@ -137,6 +137,42 @@ public class SudokuPanel extends JPanel {
 				currentlySelectedRow = e.getY() / slotHeight;
 				currentlySelectedCol = e.getX() / slotWidth;
 				e.getComponent().repaint();
+			}
+		}
+	}
+
+	private class SudokuPanelKeyListener extends KeyAdapter {
+		@Override
+		public void keyPressed(KeyEvent e) {
+			if(e.getKeyCode() == KeyEvent.VK_1 || e.getKeyCode() == KeyEvent.VK_NUMPAD1) {
+				messageFromNumActionListener("1");
+			}
+			else if(e.getKeyCode() == KeyEvent.VK_2 || e.getKeyCode() == KeyEvent.VK_NUMPAD2) {
+				messageFromNumActionListener("2");
+			}
+			else if(e.getKeyCode() == KeyEvent.VK_3 || e.getKeyCode() == KeyEvent.VK_NUMPAD3) {
+				messageFromNumActionListener("3");
+			}
+			else if(e.getKeyCode() == KeyEvent.VK_4 || e.getKeyCode() == KeyEvent.VK_NUMPAD4) {
+				messageFromNumActionListener("4");
+			}
+			else if(e.getKeyCode() == KeyEvent.VK_5 || e.getKeyCode() == KeyEvent.VK_NUMPAD5) {
+				messageFromNumActionListener("5");
+			}
+			else if(e.getKeyCode() == KeyEvent.VK_6 || e.getKeyCode() == KeyEvent.VK_NUMPAD6) {
+				messageFromNumActionListener("6");
+			}
+			else if(e.getKeyCode() == KeyEvent.VK_7 || e.getKeyCode() == KeyEvent.VK_NUMPAD7) {
+				messageFromNumActionListener("7");
+			}
+			else if(e.getKeyCode() == KeyEvent.VK_8 || e.getKeyCode() == KeyEvent.VK_NUMPAD8) {
+				messageFromNumActionListener("8");
+			}
+			else if(e.getKeyCode() == KeyEvent.VK_9 || e.getKeyCode() == KeyEvent.VK_NUMPAD9) {
+				messageFromNumActionListener("9");
+			}
+			else if(e.getKeyCode() == KeyEvent.VK_BACK_SPACE || e.getKeyCode() == KeyEvent.VK_DELETE) {
+				messageFromNumActionListener("");
 			}
 		}
 	}
