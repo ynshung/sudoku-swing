@@ -101,6 +101,12 @@ public class SudokuPanel extends JPanel {
 		for(int row=0;row < puzzle.getNumRows();row++) {
 			for(int col=0;col < puzzle.getNumColumns();col++) {
 				if(!puzzle.isSlotAvailable(row, col)) {
+					if (puzzle.isSlotMutable(row, col)) {
+						g2d.setColor(new Color(0.239f,0.353f,0.502f));
+					}
+					else {
+						g2d.setColor(new Color(0.0f,0.0f,0.0f));
+					}
 					int textWidth = (int) f.getStringBounds(puzzle.getValue(row, col), fContext).getWidth();
 					int textHeight = (int) f.getStringBounds(puzzle.getValue(row, col), fContext).getHeight();
 					g2d.drawString(puzzle.getValue(row, col), (col*slotWidth)+((slotWidth/2)-(textWidth/2)), (row*slotHeight)+((slotHeight/2)+(textHeight/2)));
