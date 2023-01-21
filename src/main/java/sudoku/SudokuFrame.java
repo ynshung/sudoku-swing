@@ -43,11 +43,11 @@ public class SudokuFrame extends JFrame {
 		this.add(windowPanel);
 
 		dialog = new SudokuNewGameDialog(this);
-		rebuildInterface(dialog.getPuzzleType());
+		rebuildInterface(dialog.getPuzzleType(), dialog.getDifficulty());
 	}
 	
-	public void rebuildInterface(SudokuPuzzleType puzzleType) {
-		SudokuPuzzle generatedPuzzle = new SudokuGenerator().generateRandomSudoku(puzzleType);
+	public void rebuildInterface(SudokuPuzzleType puzzleType, float difficulty) {
+		SudokuPuzzle generatedPuzzle = new SudokuGenerator().generateRandomSudoku(puzzleType, difficulty);
 		sPanel.newSudokuPuzzle(generatedPuzzle);
 		sPanel.setFontSize(puzzleType.getFontSize());
 		buttonSelectionPanel.removeAll();
@@ -66,7 +66,7 @@ public class SudokuFrame extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			dialog = new SudokuNewGameDialog(SudokuFrame.this);
-			rebuildInterface(dialog.getPuzzleType());
+			rebuildInterface(dialog.getPuzzleType(), dialog.getDifficulty());
 		}
 	}
 	
