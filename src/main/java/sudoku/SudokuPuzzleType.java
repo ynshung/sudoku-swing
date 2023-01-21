@@ -1,10 +1,10 @@
 package sudoku;
 
 public enum SudokuPuzzleType {
-	SIXBYSIX(6,6,3,2,new String[] {"1","2","3","4","5","6"},"6 By 6 Game"),
-	NINEBYNINE(9,9,3,3,new String[] {"1","2","3","4","5","6","7","8","9"},"9 By 9 Game"),
-	TWELVEBYTWELVE(12,12,4,3,new String[] {"1","2","3","4","5","6","7","8","9","A","B","C"},"12 By 12 Game"),
-	SIXTEENBYSIXTEEN(16,16,4,4,new String[] {"1","2","3","4","5","6","7","8","9","A","B","C","D","E","F","G"},"16 By 16 Game");
+	SIXBYSIX(6,6,3,2,new String[] {"1","2","3","4","5","6"},"6 By 6 Game", 30),
+	NINEBYNINE(9,9,3,3,new String[] {"1","2","3","4","5","6","7","8","9"},"9 By 9 Game", 26),
+	TWELVEBYTWELVE(12,12,4,3,new String[] {"1","2","3","4","5","6","7","8","9","A","B","C"},"12 By 12 Game", 20),
+	SIXTEENBYSIXTEEN(16,16,4,4,new String[] {"1","2","3","4","5","6","7","8","9","A","B","C","D","E","F","G"},"16 By 16 Game", 12);
 	
 	private final int rows;
 	private final int columns;
@@ -12,14 +12,16 @@ public enum SudokuPuzzleType {
 	private final int boxHeight;
 	private final String [] validValues;
 	private final String desc;
+	private final int fontSize;
 	
-	private SudokuPuzzleType(int rows,int columns,int boxWidth,int boxHeight,String [] validValues,String desc) {
+	private SudokuPuzzleType(int rows,int columns,int boxWidth,int boxHeight,String [] validValues,String desc,int fontSize) {
 		this.rows = rows;
 		this.columns = columns;
 		this.boxWidth = boxWidth;
 		this.boxHeight = boxHeight;
 		this.validValues = validValues;
 		this.desc = desc;
+		this.fontSize = fontSize;
 	}
 	
 	public int getRows() {
@@ -44,5 +46,9 @@ public enum SudokuPuzzleType {
 	
 	public String toString() {
 		return desc;
+	}
+
+	public int getFontSize() {
+		return fontSize;
 	}
 }

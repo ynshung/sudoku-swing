@@ -5,19 +5,14 @@ import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
+import javax.swing.*;
 
 @SuppressWarnings("serial")
 public class SudokuFrame extends JFrame {
 
 	private JPanel buttonSelectionPanel;
 	private SudokuPanel sPanel;
+	private SudokuNewGameDialog dialog;
 	
 	public SudokuFrame() {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -25,26 +20,13 @@ public class SudokuFrame extends JFrame {
 		this.setMinimumSize(new Dimension(800,600));
 		
 		JMenuBar menuBar = new JMenuBar();
-		JMenu file = new JMenu("Game");
-		JMenu newGame = new JMenu("New Game");
-		JMenuItem sixBySixGame = new JMenuItem("6 By 6 Game");
-		sixBySixGame.addActionListener(new NewGameListener(SudokuPuzzleType.SIXBYSIX,30));
-		JMenuItem nineByNineGame = new JMenuItem("9 By 9 Game");
-		nineByNineGame.addActionListener(new NewGameListener(SudokuPuzzleType.NINEBYNINE,26));
-		JMenuItem twelveByTwelveGame = new JMenuItem("12 By 12 Game");
-		twelveByTwelveGame.addActionListener(new NewGameListener(SudokuPuzzleType.TWELVEBYTWELVE,20));
-		
-		/*
-		 * need to include this when solving algorithm is improved
-		 JMenuItem sixteenBySizteenGame = new JMenuItem("16 By 16 Game");
-		sixteenBySizteenGame.addActionListener(new NewGameListener(SudokuPuzzleType.SIXTEENBYSIXTEEN,16));
-		*/
-		newGame.add(sixBySixGame);
-		newGame.add(nineByNineGame);
-		newGame.add(twelveByTwelveGame);
-		//newGame.add(sixteenBySizteenGame);
-		file.add(newGame);
-		menuBar.add(file);
+//		JMenu file = new JMenu("Game");
+		JMenuItem newGame = new JMenuItem("New Game");
+		newGame.addActionListener(new NewGameListener());
+
+//		file.add(newGame);
+//		menuBar.add(file);
+		menuBar.add(newGame);
 		this.setJMenuBar(menuBar);
 		
 		JPanel windowPanel = new JPanel();
@@ -59,14 +41,15 @@ public class SudokuFrame extends JFrame {
 		windowPanel.add(sPanel);
 		windowPanel.add(buttonSelectionPanel);
 		this.add(windowPanel);
-		
-		rebuildInterface(SudokuPuzzleType.NINEBYNINE, 26);
+
+		dialog = new SudokuNewGameDialog(this);
+		rebuildInterface(dialog.getPuzzleType());
 	}
 	
-	public void rebuildInterface(SudokuPuzzleType puzzleType,int fontSize) {
+	public void rebuildInterface(SudokuPuzzleType puzzleType) {
 		SudokuPuzzle generatedPuzzle = new SudokuGenerator().generateRandomSudoku(puzzleType);
 		sPanel.newSudokuPuzzle(generatedPuzzle);
-		sPanel.setFontSize(fontSize);
+		sPanel.setFontSize(puzzleType.getFontSize());
 		buttonSelectionPanel.removeAll();
 		for(String value : generatedPuzzle.getValidValues()) {
 			JButton b = new JButton(value);
@@ -80,18 +63,10 @@ public class SudokuFrame extends JFrame {
 	}
 	
 	private class NewGameListener implements ActionListener {
-
-		private SudokuPuzzleType puzzleType;
-		private int fontSize;
-		
-		public NewGameListener(SudokuPuzzleType puzzleType,int fontSize) {
-			this.puzzleType = puzzleType;
-			this.fontSize = fontSize;
-		}
-		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			rebuildInterface(puzzleType,fontSize);
+			dialog = new SudokuNewGameDialog(SudokuFrame.this);
+			rebuildInterface(dialog.getPuzzleType());
 		}
 	}
 	
