@@ -1,7 +1,6 @@
 package sudoku;
 
-import java.awt.Dimension;
-import java.awt.FlowLayout;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -18,7 +17,10 @@ public class SudokuFrame extends JFrame {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setTitle("Sudoku");
 		this.setMinimumSize(new Dimension(800,600));
-		
+
+		Image icon = Toolkit.getDefaultToolkit().getImage("sudoku.png");
+		this.setIconImage(icon);
+
 		JMenuBar menuBar = new JMenuBar();
 //		JMenu file = new JMenu("Game");
 		JMenuItem newGame = new JMenuItem("New Game");
