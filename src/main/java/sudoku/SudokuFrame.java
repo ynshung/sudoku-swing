@@ -42,6 +42,10 @@ public class SudokuFrame extends JFrame {
 		windowPanel.add(buttonSelectionPanel);
 		this.add(windowPanel);
 
+		newGameDialog();
+	}
+
+	public void newGameDialog() {
 		dialog = new SudokuNewGameDialog(this);
 		rebuildInterface(dialog.getPuzzleType(), dialog.getDifficulty());
 	}
@@ -65,8 +69,7 @@ public class SudokuFrame extends JFrame {
 	private class NewGameListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			dialog = new SudokuNewGameDialog(SudokuFrame.this);
-			rebuildInterface(dialog.getPuzzleType(), dialog.getDifficulty());
+			newGameDialog();
 		}
 	}
 	
