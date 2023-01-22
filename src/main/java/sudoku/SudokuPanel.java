@@ -4,8 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.font.FontRenderContext;
 
-import javax.swing.JButton;
-import javax.swing.JPanel;
+import javax.swing.*;
 import javax.swing.event.MouseInputAdapter;
 
 @SuppressWarnings("serial")
@@ -123,6 +122,13 @@ public class SudokuPanel extends JPanel {
 		if(currentlySelectedCol != -1 && currentlySelectedRow != -1) {
 			puzzle.makeMove(currentlySelectedRow, currentlySelectedCol, buttonValue, true);
 			repaint();
+
+			if(puzzle.boardFull())
+			{
+				JOptionPane.showMessageDialog(null, "Congratulations! You have completed the Sudoku game.",
+						"Game Complete", JOptionPane.INFORMATION_MESSAGE);
+
+			}
 		}
 	}
 
