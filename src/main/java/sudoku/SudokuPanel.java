@@ -16,31 +16,22 @@ public class SudokuPanel extends JPanel {
 	private int usedWidth;
 	private int usedHeight;
 	private int fontSize;
+
+	private SudokuFrame parentFrame;
 	
-	public SudokuPanel() {
+	public SudokuPanel(SudokuFrame parentFrame) {
 		this.setPreferredSize(new Dimension(540,450));
 		this.addMouseListener(new SudokuPanelMouseAdapter());
 		this.addKeyListener(new SudokuPanelKeyListener());
 		this.puzzle = new SudokuGenerator().generateRandomSudoku(SudokuPuzzleType.NINEBYNINE, 0.4f);
+		this.parentFrame = parentFrame;
 		currentlySelectedCol = -1;
 		currentlySelectedRow = -1;
 		usedWidth = 0;
 		usedHeight = 0;
 		fontSize = 26;
 	}
-	
-	
-	public SudokuPanel(SudokuPuzzle puzzle) {
-		this.setPreferredSize(new Dimension(540,450));
-		this.addMouseListener(new SudokuPanelMouseAdapter());
-		this.puzzle = puzzle;
-		currentlySelectedCol = -1;
-		currentlySelectedRow = -1;
-		usedWidth = 0;
-		usedHeight = 0;
-		fontSize = 26;
-	}
-	
+
 	public void newSudokuPuzzle(SudokuPuzzle puzzle) {
 		this.puzzle = puzzle;
 	}
@@ -125,9 +116,15 @@ public class SudokuPanel extends JPanel {
 
 			if(puzzle.boardFull())
 			{
-				JOptionPane.showMessageDialog(null, "Congratulations! You have completed the Sudoku game.",
-						"Game Complete", JOptionPane.INFORMATION_MESSAGE);
+				String[] options = {"OK", "New Game"};
+				int selection = JOptionPane.showOptionDialog(null, "Congratulations! You have completed the Sudoku game.",
+						"Game Complete", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE,
+						null, options, options[1]);
 
+				if(selection == 1)
+				{
+					parentFrame.newGameDialog();
+				}
 			}
 		}
 	}
