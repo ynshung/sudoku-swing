@@ -74,6 +74,9 @@ public class SudokuFrame extends JFrame {
 			b.addActionListener(sPanel.new NumActionListener());
 			buttonSelectionPanel.add(b);
 		}
+		JButton b2 = new JButton("Undo");
+		buttonSelectionPanel.add(b2);
+
 		sPanel.repaint();
 		buttonSelectionPanel.revalidate();
 		buttonSelectionPanel.repaint();

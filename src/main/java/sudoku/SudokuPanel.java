@@ -206,6 +206,15 @@ public class SudokuPanel extends JPanel {
 					currentlySelectedRow++;
 					repaint();
 				}
+			} else if (e.getKeyCode() == KeyEvent.VK_Z) {
+				if (e.isControlDown()){
+					//undo
+					ActionHistory.Action lastAction = null;
+					ActionHistory.popUndoStack(lastAction);
+					currentlySelectedRow = lastAction.getRow();
+					currentlySelectedCol = lastAction.getColumn();
+					clearSelectedSlot();
+				}
 			}
 		}
 	}
