@@ -38,7 +38,7 @@ public class SudokuFrame extends JFrame {
 		windowPanel.setPreferredSize(new Dimension(800,500));
 
 		rightPanel = new JPanel();
-		rightPanel.setPreferredSize(new Dimension(100,300));
+		rightPanel.setPreferredSize(new Dimension(100,340));
 		
 		buttonSelectionPanel = new JPanel();
 		buttonSelectionPanel.setPreferredSize(new Dimension(100,500));

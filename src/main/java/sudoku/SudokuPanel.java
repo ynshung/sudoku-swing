@@ -20,7 +20,7 @@ public class SudokuPanel extends JPanel {
 	private SudokuFrame parentFrame;
 	
 	public SudokuPanel(SudokuFrame parentFrame) {
-		this.setPreferredSize(new Dimension(540,450));
+		this.setPreferredSize(new Dimension(580,520));
 		this.addMouseListener(new SudokuPanelMouseAdapter());
 		this.addKeyListener(new SudokuPanelKeyListener());
 		this.puzzle = new SudokuGenerator().generateRandomSudoku(SudokuPuzzleType.NINEBYNINE, 0.4f);
