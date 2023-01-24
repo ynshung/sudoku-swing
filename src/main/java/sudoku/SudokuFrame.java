@@ -48,7 +48,7 @@ public class SudokuFrame extends JFrame {
 		rightPanel.add(timerPanel);
 		rightPanel.add(buttonSelectionPanel);
 
-		sPanel = new SudokuPanel(this);
+		sPanel = new SudokuPanel(this, timerPanel);
 		
 		windowPanel.add(sPanel);
 		windowPanel.add(rightPanel);
@@ -60,6 +60,7 @@ public class SudokuFrame extends JFrame {
 	public void newGameDialog() {
 		dialog = new SudokuNewGameDialog(this);
 		rebuildInterface(dialog.getPuzzleType(), dialog.getDifficulty());
+		timerPanel.resetTimer();
 	}
 	
 	public void rebuildInterface(SudokuPuzzleType puzzleType, float difficulty) {

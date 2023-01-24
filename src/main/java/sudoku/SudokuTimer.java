@@ -8,7 +8,7 @@ import javax.swing.*;
 public class SudokuTimer extends JPanel {
 
 	Timer timer;	
-	int second, minute;
+	int second = 0, minute = 0;
 	String ddSecond, ddMinute;	
 	DecimalFormat dFormat = new DecimalFormat("00");
 	JLabel counterLabel;
@@ -23,14 +23,6 @@ public class SudokuTimer extends JPanel {
 		counterLabel.setText("00:00");
 		this.add(counterLabel);
 
-		second =0;
-		minute =0;
-		normalTimer();
-		timer.start();
-	}
-
-	public void normalTimer() {
-		
 		timer = new Timer(1000, e -> {
 
 			second++;
@@ -50,17 +42,25 @@ public class SudokuTimer extends JPanel {
 		});
 	}
 
+	public void startTimer() {
+		timer.start();
+	}
+
 	public void stopTimer() {
 		timer.stop();
 	}
 
 	public void resetTimer() {
-		timer.stop();
 		second =0;
 		minute =0;
 		ddSecond = dFormat.format(second);
 		ddMinute = dFormat.format(minute);
 		counterLabel.setText(ddMinute + ":" + ddSecond);
+		timer.restart();
+	}
+
+	public String getTimer() {
+		return counterLabel.getText();
 	}
 }
 
