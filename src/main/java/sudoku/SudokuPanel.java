@@ -50,7 +50,7 @@ public class SudokuPanel extends JPanel {
 				RenderingHints.KEY_TEXT_ANTIALIASING,
 				RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 		g2d.setRenderingHints(rh);
-		g2d.setColor(new Color(1.0f,1.0f,1.0f));
+		g2d.setColor(new Color(240,248,255));   //panel color
 		
 		int slotWidth = this.getWidth()/puzzle.getNumColumns();
 		int slotHeight = this.getHeight()/puzzle.getNumRows();
@@ -60,7 +60,7 @@ public class SudokuPanel extends JPanel {
 		
 		g2d.fillRect(0, 0,usedWidth,usedHeight);
 		
-		g2d.setColor(new Color(0.0f,0.0f,0.0f));
+		g2d.setColor(new Color(0.0f,0.0f,0.0f));		//panel outline color
 		for(int x = 0;x <= usedWidth;x+=slotWidth) {
 			if((x/slotWidth) % puzzle.getBoxWidth() == 0) {
 				g2d.setStroke(new BasicStroke(2));
@@ -93,10 +93,10 @@ public class SudokuPanel extends JPanel {
 			for(int col=0;col < puzzle.getNumColumns();col++) {
 				if(!puzzle.isSlotAvailable(row, col)) {
 					if (puzzle.isSlotMutable(row, col)) {
-						g2d.setColor(new Color(0.239f,0.353f,0.502f));
+						g2d.setColor(new Color(0.239f,0.353f,0.502f));		//input font color
 					}
 					else {
-						g2d.setColor(new Color(0.0f,0.0f,0.0f));
+						g2d.setColor(new Color(0.0f,0.0f,0.0f));		//original font on panel color
 					}
 					int textWidth = (int) f.getStringBounds(puzzle.getValue(row, col), fContext).getWidth();
 					int textHeight = (int) f.getStringBounds(puzzle.getValue(row, col), fContext).getHeight();
@@ -105,7 +105,7 @@ public class SudokuPanel extends JPanel {
 			}
 		}
 		if(currentlySelectedCol != -1 && currentlySelectedRow != -1) {
-			g2d.setColor(new Color(0.0f,0.0f,1.0f,0.3f));
+			g2d.setColor(new Color(61,90,158,80));		//selected grid color
 			g2d.fillRect(currentlySelectedCol * slotWidth,currentlySelectedRow * slotHeight,slotWidth,slotHeight);
 		}
 		this.requestFocusInWindow();
