@@ -10,7 +10,9 @@ public class SudokuPuzzle {
 	private final int BOXWIDTH;
 	private final int BOXHEIGHT;
 	private final String [] VALIDVALUES;
-	
+
+	public ActionHistory actionHistory;
+
 	public SudokuPuzzle(int rows,int columns,int boxWidth,int boxHeight,String [] validValues) {
 		this.ROWS = rows;
 		this.COLUMNS = columns;
@@ -21,6 +23,8 @@ public class SudokuPuzzle {
 		this.mutable = new boolean[ROWS][COLUMNS];
 		initializeBoard();
 		initializeMutableSlots();
+
+		this.actionHistory = new ActionHistory();
 	}
 	
 	public SudokuPuzzle(SudokuPuzzle puzzle) {
@@ -67,7 +71,7 @@ public class SudokuPuzzle {
 		if(this.isValidValue(value) && this.isValidMove(row,col,value) && this.isSlotMutable(row, col)) {
 			this.board[row][col] = value;
 			this.mutable[row][col] = isMutable;
-			ActionHistory.pushUndoStack(new ActionHistory.Action(row, col, value));
+			this.actionHistory.pushUndoStack(actionHistory. new Action(row, col, value));
 		}
 	}
 	
