@@ -49,5 +49,18 @@ public class SudokuTimer extends JPanel {
 			}
 		});
 	}
+
+	public void stopTimer() {
+		timer.stop();
+	}
+
+	public void resetTimer() {
+		timer.stop();
+		second =0;
+		minute =0;
+		ddSecond = dFormat.format(second);
+		ddMinute = dFormat.format(minute);
+		counterLabel.setText(ddMinute + ":" + ddSecond);
+	}
 }
 
