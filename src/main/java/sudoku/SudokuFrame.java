@@ -11,6 +11,8 @@ public class SudokuFrame extends JFrame {
 
 	private JPanel buttonSelectionPanel;
 	private SudokuPanel sPanel;
+	private JPanel rightPanel;
+	private SudokuTimer timerPanel;
 	private SudokuNewGameDialog dialog;
 	
 	public SudokuFrame() {
@@ -33,15 +35,23 @@ public class SudokuFrame extends JFrame {
 		
 		JPanel windowPanel = new JPanel();
 		windowPanel.setLayout(new FlowLayout());
-		windowPanel.setPreferredSize(new Dimension(800,600));
+		windowPanel.setPreferredSize(new Dimension(800,500));
+
+		rightPanel = new JPanel();
+		rightPanel.setPreferredSize(new Dimension(100,340));
 		
 		buttonSelectionPanel = new JPanel();
 		buttonSelectionPanel.setPreferredSize(new Dimension(100,500));
 
-		sPanel = new SudokuPanel(this);
+		timerPanel = new SudokuTimer();
+
+		rightPanel.add(timerPanel);
+		rightPanel.add(buttonSelectionPanel);
+
+		sPanel = new SudokuPanel(this, timerPanel);
 		
 		windowPanel.add(sPanel);
-		windowPanel.add(buttonSelectionPanel);
+		windowPanel.add(rightPanel);
 		this.add(windowPanel);
 
 		newGameDialog();
@@ -50,6 +60,7 @@ public class SudokuFrame extends JFrame {
 	public void newGameDialog() {
 		dialog = new SudokuNewGameDialog(this);
 		rebuildInterface(dialog.getPuzzleType(), dialog.getDifficulty());
+		timerPanel.resetTimer();
 	}
 	
 	public void rebuildInterface(SudokuPuzzleType puzzleType, float difficulty) {
