@@ -5,19 +5,15 @@ import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
+import javax.swing.*;
 
 @SuppressWarnings("serial")
 public class SudokuFrame extends JFrame {
 
 	private JPanel buttonSelectionPanel;
 	private SudokuPanel sPanel;
+	private JPanel rightPanel;
+	private SudokuTimer timerPanel;
 	
 	public SudokuFrame() {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -49,15 +45,23 @@ public class SudokuFrame extends JFrame {
 		
 		JPanel windowPanel = new JPanel();
 		windowPanel.setLayout(new FlowLayout());
-		windowPanel.setPreferredSize(new Dimension(800,600));
+		windowPanel.setPreferredSize(new Dimension(800,500));
+
+		rightPanel = new JPanel();
+		rightPanel.setPreferredSize(new Dimension(100,300));
 		
 		buttonSelectionPanel = new JPanel();
-		buttonSelectionPanel.setPreferredSize(new Dimension(90,500));
+		buttonSelectionPanel.setPreferredSize(new Dimension(90,250));
+
+		timerPanel = new SudokuTimer();
+
+		rightPanel.add(timerPanel);
+		rightPanel.add(buttonSelectionPanel);
 
 		sPanel = new SudokuPanel();
 		
 		windowPanel.add(sPanel);
-		windowPanel.add(buttonSelectionPanel);
+		windowPanel.add(rightPanel);
 		this.add(windowPanel);
 		
 		rebuildInterface(SudokuPuzzleType.NINEBYNINE, 26);
