@@ -26,7 +26,10 @@ public class SudokuFrame extends JFrame {
 		JMenuBar menuBar = new JMenuBar();
 		JMenuItem newGame = new JMenuItem("New Game");
 		newGame.addActionListener(new NewGameListener());
-		newGame.setPreferredSize(new Dimension(100,20));
+		newGame.setPreferredSize(new Dimension(100,50));
+		newGame.setFont(new Font("Arial", Font.PLAIN, 24));
+		newGame.setForeground(Color.decode("#1c2e4a"));
+		newGame.setBackground(Color.decode("#98c1d9"));
 
 		menuBar.add(newGame);
 		this.setJMenuBar(menuBar);
@@ -34,6 +37,7 @@ public class SudokuFrame extends JFrame {
 		JPanel windowPanel = new JPanel();
 		windowPanel.setLayout(new FlowLayout());
 		windowPanel.setPreferredSize(new Dimension(800,500));
+		windowPanel.setBackground(Color.decode("f1f1f1"));
 
 		rightPanel = new JPanel();
 		rightPanel.setPreferredSize(new Dimension(150,400));
