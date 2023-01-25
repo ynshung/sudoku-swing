@@ -174,10 +174,22 @@ public class SudokuPanel extends JPanel {
 		}
 	}
 
+	public void clearAction() {
+			clearSelectedSlot();
+			repaint();
+	}
+
 	public class UndoListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			undoAction();
+		}
+	}
+
+	public class ClearListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			clearAction();
 		}
 	}
 	

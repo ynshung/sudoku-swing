@@ -49,7 +49,7 @@ public class SudokuFrame extends JFrame {
 		undoButton.addActionListener(new UndoListener());
 
 		JButton clearButton = new JButton("Clear");
-//		clearButton.addActionListener(new ClearListener());
+		clearButton.addActionListener(new ClearListener());
 
 		buttonPanel.add(clearButton);
 		buttonPanel.add(undoButton);
@@ -97,6 +97,13 @@ public class SudokuFrame extends JFrame {
 	}
 
 	private class UndoListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			sPanel.clearAction();
+		}
+	}
+
+	private class ClearListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			sPanel.undoAction();
