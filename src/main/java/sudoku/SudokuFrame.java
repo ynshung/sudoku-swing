@@ -37,7 +37,7 @@ public class SudokuFrame extends JFrame {
 		JPanel windowPanel = new JPanel();
 		windowPanel.setLayout(new FlowLayout());
 		windowPanel.setPreferredSize(new Dimension(800,500));
-		windowPanel.setBackground(Color.decode("f1f1f1"));
+		windowPanel.setBackground(Color.decode("98c1d9"));
 
 		rightPanel = new JPanel();
 		rightPanel.setPreferredSize(new Dimension(150,400));
