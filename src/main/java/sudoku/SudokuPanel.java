@@ -144,6 +144,24 @@ public class SudokuPanel extends JPanel {
 			repaint();
 		}
 	}
+
+	public void undoAction() {
+		if (ActionHistory.canUndo()) {
+			clearSelectedSlot();
+			ActionHistory.Action lastAction;
+			lastAction = ActionHistory.popUndoStack();
+			currentlySelectedRow = lastAction.getRow();
+			currentlySelectedCol = lastAction.getColumn();
+			repaint();
+		}
+	}
+
+	public class UndoListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			undoAction();
+		}
+	}
 	
 	public class NumActionListener implements ActionListener {
 		@Override
@@ -225,6 +243,10 @@ public class SudokuPanel extends JPanel {
 				if (currentlySelectedRow < puzzle.getNumRows() - 1) {
 					currentlySelectedRow++;
 					repaint();
+				}
+			} else if (e.getKeyCode() == KeyEvent.VK_Z) {
+				if (e.isControlDown()){
+					undoAction();
 				}
 			}
 		}

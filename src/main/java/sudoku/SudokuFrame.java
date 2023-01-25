@@ -27,10 +27,15 @@ public class SudokuFrame extends JFrame {
 //		JMenu file = new JMenu("Game");
 		JMenuItem newGame = new JMenuItem("New Game");
 		newGame.addActionListener(new NewGameListener());
+		newGame.setPreferredSize(new Dimension(100,20));
+
+		JMenuItem undoItem = new JMenuItem("Undo");
+		undoItem.addActionListener(new UndoListener());
 
 //		file.add(newGame);
 //		menuBar.add(file);
 		menuBar.add(newGame);
+		menuBar.add(undoItem);
 		this.setJMenuBar(menuBar);
 		
 		JPanel windowPanel = new JPanel();
@@ -83,6 +88,13 @@ public class SudokuFrame extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			newGameDialog();
+		}
+	}
+
+	private class UndoListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			sPanel.undoAction();
 		}
 	}
 	
