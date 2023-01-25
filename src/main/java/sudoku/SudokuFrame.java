@@ -24,18 +24,11 @@ public class SudokuFrame extends JFrame {
 		this.setIconImage(icon);
 
 		JMenuBar menuBar = new JMenuBar();
-//		JMenu file = new JMenu("Game");
 		JMenuItem newGame = new JMenuItem("New Game");
 		newGame.addActionListener(new NewGameListener());
 		newGame.setPreferredSize(new Dimension(100,20));
 
-		JMenuItem undoItem = new JMenuItem("Undo");
-		undoItem.addActionListener(new UndoListener());
-
-//		file.add(newGame);
-//		menuBar.add(file);
 		menuBar.add(newGame);
-		menuBar.add(undoItem);
 		this.setJMenuBar(menuBar);
 		
 		JPanel windowPanel = new JPanel();
@@ -43,14 +36,30 @@ public class SudokuFrame extends JFrame {
 		windowPanel.setPreferredSize(new Dimension(800,500));
 
 		rightPanel = new JPanel();
-		rightPanel.setPreferredSize(new Dimension(100,340));
-		
-		buttonSelectionPanel = new JPanel();
-		buttonSelectionPanel.setPreferredSize(new Dimension(100,500));
+		rightPanel.setPreferredSize(new Dimension(150,400));
 
 		timerPanel = new SudokuTimer();
 
+		buttonSelectionPanel = new JPanel();
+		buttonSelectionPanel.setPreferredSize(new Dimension(100,500));
+
+		JPanel buttonPanel = new JPanel();
+
+		JButton undoButton = new JButton("Undo");
+		undoButton.addActionListener(new UndoListener());
+
+		JButton clearButton = new JButton("Clear");
+		clearButton.addActionListener(new ClearListener());
+
+		JButton clearAllButton = new JButton("Clear All");
+		clearAllButton.addActionListener(new ClearAllListener());
+
+		buttonPanel.add(clearButton);
+		buttonPanel.add(undoButton);
+
 		rightPanel.add(timerPanel);
+		rightPanel.add(buttonPanel);
+		rightPanel.add(clearAllButton);
 		rightPanel.add(buttonSelectionPanel);
 
 		sPanel = new SudokuPanel(this, timerPanel);
@@ -102,6 +111,20 @@ public class SudokuFrame extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			sPanel.undoAction();
+		}
+	}
+
+	private class ClearListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			sPanel.clearAction();
+		}
+	}
+
+	private class ClearAllListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			sPanel.clearAllAction();
 		}
 	}
 	
