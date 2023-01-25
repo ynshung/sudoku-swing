@@ -56,10 +56,10 @@ public class SudokuFrame extends JFrame {
 
 		buttonPanel.add(clearButton);
 		buttonPanel.add(undoButton);
-		buttonPanel.add(clearAllButton);
 
 		rightPanel.add(timerPanel);
 		rightPanel.add(buttonPanel);
+		rightPanel.add(clearAllButton);
 		rightPanel.add(buttonSelectionPanel);
 
 		sPanel = new SudokuPanel(this, timerPanel);
