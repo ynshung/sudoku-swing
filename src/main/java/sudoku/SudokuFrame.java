@@ -57,13 +57,6 @@ public class SudokuFrame extends JFrame {
 		undoButton.addActionListener(new UndoListener());
 
 		JButton clearButton = new JButton("Clear");
-
-		JPanel buttonPanel = new JPanel();
-
-		JButton undoButton = new JButton("Undo");
-		undoButton.addActionListener(new UndoListener());
-
-		JButton clearButton = new JButton("Clear");
 		clearButton.addActionListener(new ClearListener());
 
 		JButton clearAllButton = new JButton("Clear All");
