@@ -27,10 +27,12 @@ public class SudokuFrame extends JFrame {
 //		JMenu file = new JMenu("Game");
 		JMenuItem newGame = new JMenuItem("New Game");
 		newGame.addActionListener(new NewGameListener());
-		newGame.setPreferredSize(new Dimension(100,20));
+		newGame.setPreferredSize(new Dimension(100,50));
+		newGame.setFont(new Font("Arial", Font.PLAIN, 24));
 
 		JMenuItem undoItem = new JMenuItem("Undo");
 		undoItem.addActionListener(new UndoListener());
+		undoItem.setFont(new Font("Arial", Font.PLAIN, 20));
 
 //		file.add(newGame);
 //		menuBar.add(file);
