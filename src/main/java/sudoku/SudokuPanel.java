@@ -126,7 +126,7 @@ public class SudokuPanel extends JPanel {
 
 
 		}
-
+		this.requestFocusInWindow();
 	}
 	
 	public void messageFromNumActionListener(String buttonValue) {
