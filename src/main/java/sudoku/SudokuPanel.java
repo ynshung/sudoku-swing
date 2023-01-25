@@ -230,11 +230,12 @@ public class SudokuPanel extends JPanel {
 				if (e.isControlDown()){
 					if (ActionHistory.canUndo()) {
 						//undo
-						ActionHistory.Action lastAction = null;
-						ActionHistory.popUndoStack(lastAction);
+						clearSelectedSlot();
+						ActionHistory.Action lastAction;
+						lastAction = ActionHistory.popUndoStack();
 						currentlySelectedRow = lastAction.getRow();
 						currentlySelectedCol = lastAction.getColumn();
-						clearSelectedSlot();
+						repaint();
 					}
 				}
 			}

@@ -71,7 +71,7 @@ public class SudokuPuzzle {
 		if(this.isValidValue(value) && this.isValidMove(row,col,value) && this.isSlotMutable(row, col)) {
 			this.board[row][col] = value;
 			this.mutable[row][col] = isMutable;
-			this.actionHistory.pushUndoStack(actionHistory. new Action(row, col, value));
+			this.actionHistory.pushUndoStack(new ActionHistory.Action(row, col, value));
 		}
 	}
 	

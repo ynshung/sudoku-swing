@@ -3,7 +3,7 @@ package sudoku;
 import java.util.Stack;
 
 public class ActionHistory {
-    public class Action {
+    public static class Action {
         private final int row;
         private final int col;
         private final String value;
@@ -23,10 +23,10 @@ public class ActionHistory {
         public String getValue() { return value; }
     }
 
-    private static Stack undoStack;
+    private static Stack<Action> undoStack;
 
     public ActionHistory() {   //Constructor
-        undoStack = new Stack();
+        undoStack = new Stack<>();
     }
 
     public static boolean canUndo() {
@@ -41,7 +41,7 @@ public class ActionHistory {
         undoStack.push(action);
     }
 
-    public static Object popUndoStack(Action lastAction) {  //Pop last action from stack
+    public static Action popUndoStack() {  //Pop last action from stack
         return undoStack.pop();
     }
 
