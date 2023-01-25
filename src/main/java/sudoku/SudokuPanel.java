@@ -174,6 +174,17 @@ public class SudokuPanel extends JPanel {
 		}
 	}
 
+	public void clearAllAction() {
+		while (ActionHistory.canUndo()) {
+			clearSelectedSlot();
+			ActionHistory.Action lastAction;
+			lastAction = ActionHistory.popUndoStack();
+			currentlySelectedRow = lastAction.getRow();
+			currentlySelectedCol = lastAction.getColumn();
+			repaint();
+		}
+	}
+
 	public void clearAction() {
 			clearSelectedSlot();
 			repaint();
@@ -190,6 +201,13 @@ public class SudokuPanel extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			clearAction();
+		}
+	}
+
+	public class ClearAllListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			clearAllAction();
 		}
 	}
 	
