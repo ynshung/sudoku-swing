@@ -18,7 +18,7 @@ public class SudokuFrame extends JFrame {
 	public SudokuFrame() {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setTitle("Sudoku");
-		this.setMinimumSize(new Dimension(800,600));
+		this.setMinimumSize(new Dimension(800,700));
 
 		Image icon = Toolkit.getDefaultToolkit().getImage("sudoku.png");
 		this.setIconImage(icon);
@@ -26,7 +26,10 @@ public class SudokuFrame extends JFrame {
 		JMenuBar menuBar = new JMenuBar();
 		JMenuItem newGame = new JMenuItem("New Game");
 		newGame.addActionListener(new NewGameListener());
-		newGame.setPreferredSize(new Dimension(100,20));
+		newGame.setPreferredSize(new Dimension(100,50));
+		newGame.setFont(new Font("Arial", Font.PLAIN, 24));
+		newGame.setForeground(Color.decode("#000000"));
+		newGame.setBackground(Color.decode("#e07a5f"));
 
 		menuBar.add(newGame);
 		this.setJMenuBar(menuBar);
@@ -34,16 +37,21 @@ public class SudokuFrame extends JFrame {
 		JPanel windowPanel = new JPanel();
 		windowPanel.setLayout(new FlowLayout());
 		windowPanel.setPreferredSize(new Dimension(800,500));
+		windowPanel.setBackground(new Color(244, 241,222));
 
 		rightPanel = new JPanel();
-		rightPanel.setPreferredSize(new Dimension(150,400));
+		rightPanel.setPreferredSize(new Dimension(150,410));
+		rightPanel.setBackground(new Color(244, 241,222));
 
 		timerPanel = new SudokuTimer();
+		timerPanel.setBackground(new Color(244, 241,222));
 
 		buttonSelectionPanel = new JPanel();
 		buttonSelectionPanel.setPreferredSize(new Dimension(100,500));
+		buttonSelectionPanel.setBackground(new Color(244, 241,222));
 
 		JPanel buttonPanel = new JPanel();
+		buttonPanel.setBackground(new Color(244, 241,222));
 
 		JButton undoButton = new JButton("Undo");
 		undoButton.addActionListener(new UndoListener());
@@ -63,6 +71,7 @@ public class SudokuFrame extends JFrame {
 		rightPanel.add(buttonSelectionPanel);
 
 		sPanel = new SudokuPanel(this, timerPanel);
+		sPanel.setBackground(new Color(244, 241,222));
 		
 		windowPanel.add(sPanel);
 		windowPanel.add(rightPanel);
@@ -82,6 +91,7 @@ public class SudokuFrame extends JFrame {
 		return true;
 	}
 	
+
 	public void rebuildInterface(SudokuPuzzleType puzzleType, float difficulty) {
 		SudokuPuzzle generatedPuzzle = new SudokuGenerator().generateRandomSudoku(puzzleType, difficulty);
 		sPanel.newSudokuPuzzle(generatedPuzzle);
