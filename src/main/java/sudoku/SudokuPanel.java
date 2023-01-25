@@ -126,7 +126,7 @@ public class SudokuPanel extends JPanel {
 
 
 		}
-
+		this.requestFocusInWindow();
 	}
 	
 	public void messageFromNumActionListener(String buttonValue) {
@@ -174,10 +174,40 @@ public class SudokuPanel extends JPanel {
 		}
 	}
 
+	public void clearAllAction() {
+		while (ActionHistory.canUndo()) {
+			clearSelectedSlot();
+			ActionHistory.Action lastAction;
+			lastAction = ActionHistory.popUndoStack();
+			currentlySelectedRow = lastAction.getRow();
+			currentlySelectedCol = lastAction.getColumn();
+			repaint();
+		}
+	}
+
+	public void clearAction() {
+			clearSelectedSlot();
+			repaint();
+	}
+
 	public class UndoListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			undoAction();
+		}
+	}
+
+	public class ClearListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			clearAction();
+		}
+	}
+
+	public class ClearAllListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			clearAllAction();
 		}
 	}
 	

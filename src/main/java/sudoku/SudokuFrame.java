@@ -24,7 +24,6 @@ public class SudokuFrame extends JFrame {
 		this.setIconImage(icon);
 
 		JMenuBar menuBar = new JMenuBar();
-//		JMenu file = new JMenu("Game");
 		JMenuItem newGame = new JMenuItem("New Game");
 		newGame.addActionListener(new NewGameListener());
 		newGame.setPreferredSize(new Dimension(100,50));
@@ -34,10 +33,7 @@ public class SudokuFrame extends JFrame {
 		undoItem.addActionListener(new UndoListener());
 		undoItem.setFont(new Font("Arial", Font.PLAIN, 20));
 
-//		file.add(newGame);
-//		menuBar.add(file);
 		menuBar.add(newGame);
-		menuBar.add(undoItem);
 		this.setJMenuBar(menuBar);
 		
 		JPanel windowPanel = new JPanel();
@@ -45,14 +41,30 @@ public class SudokuFrame extends JFrame {
 		windowPanel.setPreferredSize(new Dimension(800,500));
 
 		rightPanel = new JPanel();
-		rightPanel.setPreferredSize(new Dimension(100,340));
-		
-		buttonSelectionPanel = new JPanel();
-		buttonSelectionPanel.setPreferredSize(new Dimension(100,500));
+		rightPanel.setPreferredSize(new Dimension(150,400));
 
 		timerPanel = new SudokuTimer();
 
+		buttonSelectionPanel = new JPanel();
+		buttonSelectionPanel.setPreferredSize(new Dimension(100,500));
+
+		JPanel buttonPanel = new JPanel();
+
+		JButton undoButton = new JButton("Undo");
+		undoButton.addActionListener(new UndoListener());
+
+		JButton clearButton = new JButton("Clear");
+		clearButton.addActionListener(new ClearListener());
+
+		JButton clearAllButton = new JButton("Clear All");
+		clearAllButton.addActionListener(new ClearAllListener());
+
+		buttonPanel.add(clearButton);
+		buttonPanel.add(undoButton);
+
 		rightPanel.add(timerPanel);
+		rightPanel.add(buttonPanel);
+		rightPanel.add(clearAllButton);
 		rightPanel.add(buttonSelectionPanel);
 
 		sPanel = new SudokuPanel(this, timerPanel);
@@ -61,13 +73,18 @@ public class SudokuFrame extends JFrame {
 		windowPanel.add(rightPanel);
 		this.add(windowPanel);
 
-		newGameDialog();
+		if (!newGameDialog()) {
+			System.exit(0);
+		}
 	}
 
-	public void newGameDialog() {
+	public boolean newGameDialog() {
 		dialog = new SudokuNewGameDialog(this);
+		if (dialog.isCancelled())
+			return false;
 		rebuildInterface(dialog.getPuzzleType(), dialog.getDifficulty());
 		timerPanel.resetTimer();
+		return true;
 	}
 	
 	public void rebuildInterface(SudokuPuzzleType puzzleType, float difficulty) {
@@ -89,7 +106,9 @@ public class SudokuFrame extends JFrame {
 	private class NewGameListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			newGameDialog();
+			if (newGameDialog()) {
+				timerPanel.resetTimer();
+			}
 		}
 	}
 
@@ -97,6 +116,20 @@ public class SudokuFrame extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			sPanel.undoAction();
+		}
+	}
+
+	private class ClearListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			sPanel.clearAction();
+		}
+	}
+
+	private class ClearAllListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			sPanel.clearAllAction();
 		}
 	}
 	

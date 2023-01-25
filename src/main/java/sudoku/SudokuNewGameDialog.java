@@ -27,13 +27,15 @@ public class SudokuNewGameDialog extends JDialog {
             case 0:
                 puzzleType = SudokuPuzzleType.SIXBYSIX;
                 break;
+            case 1:
+                puzzleType = SudokuPuzzleType.NINEBYNINE;
+                break;
             case 2:
                 puzzleType = SudokuPuzzleType.TWELVEBYTWELVE;
                 break;
             default:
-            case 1:
-                puzzleType = SudokuPuzzleType.NINEBYNINE;
-                break;
+                puzzleType = null;
+                return;
         }
 
         int difficultySelection = JOptionPane.showOptionDialog(
@@ -50,12 +52,14 @@ public class SudokuNewGameDialog extends JDialog {
             case 0:
                 difficulty = 0.5555f;
                 break;
+            case 1:
+                difficulty =  0.4f;
+                break;
             case 2:
                 difficulty = 0.2222f;
                 break;
             default:
-            case 1:
-                difficulty =  0.4f;
+                difficulty = 0.0f;
                 break;
         }
     }
@@ -65,5 +69,9 @@ public class SudokuNewGameDialog extends JDialog {
 
     public float getDifficulty() {
         return difficulty;
+    }
+
+    public boolean isCancelled() {
+    	return (puzzleType == null || difficulty == 0.0f);
     }
 }
