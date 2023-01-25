@@ -1,52 +1,39 @@
 package sudoku;
 
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
+import java.awt.*;
 import java.awt.event.*;
 import java.awt.font.FontRenderContext;
 
-import javax.swing.JButton;
-import javax.swing.JPanel;
+import javax.swing.*;
 import javax.swing.event.MouseInputAdapter;
 
 @SuppressWarnings("serial")
 public class SudokuPanel extends JPanel {
 
 	private SudokuPuzzle puzzle;
+	private SudokuTimer timerPanel;
 	private int currentlySelectedCol;
 	private int currentlySelectedRow;
 	private int usedWidth;
 	private int usedHeight;
 	private int fontSize;
+
+	private SudokuFrame parentFrame;
 	
-	public SudokuPanel() {
-		this.setPreferredSize(new Dimension(540,450));
+	public SudokuPanel(SudokuFrame parentFrame, SudokuTimer timerPanel) {
+		this.setPreferredSize(new Dimension(580,520));
 		this.addMouseListener(new SudokuPanelMouseAdapter());
 		this.addKeyListener(new SudokuPanelKeyListener());
-		this.puzzle = new SudokuGenerator().generateRandomSudoku(SudokuPuzzleType.NINEBYNINE);
+		this.puzzle = new SudokuGenerator().generateRandomSudoku(SudokuPuzzleType.NINEBYNINE, 0.4f);
+		this.timerPanel = timerPanel;
+		this.parentFrame = parentFrame;
 		currentlySelectedCol = -1;
 		currentlySelectedRow = -1;
 		usedWidth = 0;
 		usedHeight = 0;
 		fontSize = 26;
 	}
-	
-	
-	public SudokuPanel(SudokuPuzzle puzzle) {
-		this.setPreferredSize(new Dimension(540,450));
-		this.addMouseListener(new SudokuPanelMouseAdapter());
-		this.puzzle = puzzle;
-		currentlySelectedCol = -1;
-		currentlySelectedRow = -1;
-		usedWidth = 0;
-		usedHeight = 0;
-		fontSize = 26;
-	}
-	
+
 	public void newSudokuPuzzle(SudokuPuzzle puzzle) {
 		this.puzzle = puzzle;
 	}
@@ -59,6 +46,10 @@ public class SudokuPanel extends JPanel {
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2d = (Graphics2D) g;
+		RenderingHints rh = new RenderingHints(
+				RenderingHints.KEY_TEXT_ANTIALIASING,
+				RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+		g2d.setRenderingHints(rh);
 		g2d.setColor(new Color(1.0f,1.0f,1.0f));
 		
 		int slotWidth = this.getWidth()/puzzle.getNumColumns();
@@ -124,6 +115,26 @@ public class SudokuPanel extends JPanel {
 		if(currentlySelectedCol != -1 && currentlySelectedRow != -1) {
 			puzzle.makeMove(currentlySelectedRow, currentlySelectedCol, buttonValue, true);
 			repaint();
+
+			if(puzzle.boardFull())
+			{
+				String[] options = {"OK", "New Game"};
+				timerPanel.stopTimer();
+				int selection = JOptionPane.showOptionDialog(
+						null,
+						"Congratulations, you have completed the Sudoku game in " + timerPanel.getTimer()+ "!",
+						"Game Complete",
+						JOptionPane.DEFAULT_OPTION,
+						JOptionPane.INFORMATION_MESSAGE,
+						null,
+						options,
+						options[1]);
+
+				if(selection == 1)
+				{
+					parentFrame.newGameDialog();
+				}
+			}
 		}
 	}
 
@@ -186,6 +197,15 @@ public class SudokuPanel extends JPanel {
 			}
 			else if(e.getKeyCode() == KeyEvent.VK_BACK_SPACE || e.getKeyCode() == KeyEvent.VK_DELETE) {
 				clearSelectedSlot();
+			}
+			else if(e.getKeyCode() == KeyEvent.VK_A) {
+				messageFromNumActionListener("A");
+			}
+			else if(e.getKeyCode() == KeyEvent.VK_B) {
+				messageFromNumActionListener("B");
+			}
+			else if(e.getKeyCode() == KeyEvent.VK_C) {
+				messageFromNumActionListener("C");
 			} else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
 				if (currentlySelectedCol > 0) {
 					currentlySelectedCol--;
