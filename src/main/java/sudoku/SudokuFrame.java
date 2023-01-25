@@ -28,8 +28,8 @@ public class SudokuFrame extends JFrame {
 		newGame.addActionListener(new NewGameListener());
 		newGame.setPreferredSize(new Dimension(100,50));
 		newGame.setFont(new Font("Arial", Font.PLAIN, 24));
-		newGame.setForeground(Color.decode("#1c2e4a"));
-		newGame.setBackground(Color.decode("#98c1d9"));
+		newGame.setForeground(Color.decode("#000000"));
+		newGame.setBackground(Color.decode("#e07a5f"));
 
 		menuBar.add(newGame);
 		this.setJMenuBar(menuBar);
@@ -37,23 +37,26 @@ public class SudokuFrame extends JFrame {
 		JPanel windowPanel = new JPanel();
 		windowPanel.setLayout(new FlowLayout());
 		windowPanel.setPreferredSize(new Dimension(800,500));
-		windowPanel.setBackground(Color.decode("98c1d9"));
+		windowPanel.setBackground(new Color(244, 241,222));
 
 		rightPanel = new JPanel();
 		rightPanel.setPreferredSize(new Dimension(150,400));
+		rightPanel.setBackground(new Color(244, 241,222));
 
 		timerPanel = new SudokuTimer();
+		timerPanel.setBackground(new Color(244, 241,222));
 
 		buttonSelectionPanel = new JPanel();
 		buttonSelectionPanel.setPreferredSize(new Dimension(100,500));
+		buttonSelectionPanel.setBackground(new Color(244, 241,222));
 
 		JPanel buttonPanel = new JPanel();
+		buttonPanel.setBackground(new Color(244, 241,222));
 
 		JButton undoButton = new JButton("Undo");
 		undoButton.addActionListener(new UndoListener());
 
 		JButton clearButton = new JButton("Clear");
-//		clearButton.addActionListener(new ClearListener());
 
 		buttonPanel.add(clearButton);
 		buttonPanel.add(undoButton);
@@ -63,6 +66,7 @@ public class SudokuFrame extends JFrame {
  		rightPanel.add(buttonSelectionPanel);
 
 		sPanel = new SudokuPanel(this, timerPanel);
+		sPanel.setBackground(new Color(244, 241,222));
 		
 		windowPanel.add(sPanel);
 		windowPanel.add(rightPanel);
@@ -77,6 +81,7 @@ public class SudokuFrame extends JFrame {
 		timerPanel.resetTimer();
 	}
 	
+
 	public void rebuildInterface(SudokuPuzzleType puzzleType, float difficulty) {
 		SudokuPuzzle generatedPuzzle = new SudokuGenerator().generateRandomSudoku(puzzleType, difficulty);
 		sPanel.newSudokuPuzzle(generatedPuzzle);
