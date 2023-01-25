@@ -53,7 +53,7 @@ public class SudokuNewGameDialog extends JDialog {
                 difficulty = 0.5555f;
                 break;
             case 1:
-                difficulty =  0.99f;
+                difficulty =  0.4f;
                 break;
             case 2:
                 difficulty = 0.2222f;
