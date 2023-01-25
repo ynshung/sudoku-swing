@@ -17,6 +17,7 @@ public class SudokuPanel extends JPanel {
 	private int usedWidth;
 	private int usedHeight;
 	private int fontSize;
+	private boolean isInvalid;
 
 	private SudokuFrame parentFrame;
 	
@@ -113,7 +114,8 @@ public class SudokuPanel extends JPanel {
 			}
 		}
 		if(currentlySelectedCol != -1 && currentlySelectedRow != -1) {
-			g2d.setColor(new Color(61,90,158,80));		//selected grid color
+			if (isInvalid) g2d.setColor(new Color(255,0,0,50));
+			else g2d.setColor(new Color(61,90,158,80));
 			g2d.fillRect(currentlySelectedCol * slotWidth,currentlySelectedRow * slotHeight,slotWidth,slotHeight);
 
 			//highlight the selected row
@@ -131,7 +133,7 @@ public class SudokuPanel extends JPanel {
 	
 	public void messageFromNumActionListener(String buttonValue) {
 		if(currentlySelectedCol != -1 && currentlySelectedRow != -1) {
-			puzzle.makeMove(currentlySelectedRow, currentlySelectedCol, buttonValue, true);
+			isInvalid = !puzzle.makeMove(currentlySelectedRow, currentlySelectedCol, buttonValue, true);
 			repaint();
 
 			if(puzzle.boardFull())
@@ -157,6 +159,7 @@ public class SudokuPanel extends JPanel {
 	}
 
 	public void clearSelectedSlot() {
+		isInvalid = false;
 		if (puzzle.isSlotMutable(currentlySelectedRow, currentlySelectedCol)) {
 			puzzle.makeSlotEmpty(currentlySelectedRow, currentlySelectedCol);
 			repaint();
@@ -221,6 +224,7 @@ public class SudokuPanel extends JPanel {
 	private class SudokuPanelMouseAdapter extends MouseInputAdapter {
 		@Override
 		public void mouseClicked(MouseEvent e) {
+			isInvalid = false;
 			if(e.getButton() == MouseEvent.BUTTON1) {
 				int slotWidth = usedWidth/puzzle.getNumColumns();
 				int slotHeight = usedHeight/puzzle.getNumRows();
@@ -275,24 +279,29 @@ public class SudokuPanel extends JPanel {
 			} else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
 				if (currentlySelectedCol > 0) {
 					currentlySelectedCol--;
+					isInvalid = false;
 					repaint();
 				}
 			} else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
 				if (currentlySelectedCol < puzzle.getNumColumns() - 1) {
 					currentlySelectedCol++;
+					isInvalid = false;
 					repaint();
 				}
 			} else if (e.getKeyCode() == KeyEvent.VK_UP) {
 				if (currentlySelectedRow > 0) {
 					currentlySelectedRow--;
+					isInvalid = false;
 					repaint();
 				}
 			} else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
 				if (currentlySelectedRow < puzzle.getNumRows() - 1) {
 					currentlySelectedRow++;
+					isInvalid = false;
 					repaint();
 				}
 			} else if (e.getKeyCode() == KeyEvent.VK_Z) {
+				isInvalid = false;
 				if (e.isControlDown()){
 					undoAction();
 				}
