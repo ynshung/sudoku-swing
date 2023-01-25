@@ -40,14 +40,14 @@ public class SudokuFrame extends JFrame {
 		windowPanel.setBackground(new Color(244, 241,222));
 
 		rightPanel = new JPanel();
-		rightPanel.setPreferredSize(new Dimension(150,600));
+		rightPanel.setPreferredSize(new Dimension(150,500));
 		rightPanel.setBackground(new Color(244, 241,222));
 
 		timerPanel = new SudokuTimer();
 		timerPanel.setBackground(new Color(244, 241,222));
 
 		buttonSelectionPanel = new JPanel();
-		buttonSelectionPanel.setPreferredSize(new Dimension(100,600));
+		buttonSelectionPanel.setPreferredSize(new Dimension(100,500));
 		buttonSelectionPanel.setBackground(new Color(244, 241,222));
 
 		JPanel buttonPanel = new JPanel();
