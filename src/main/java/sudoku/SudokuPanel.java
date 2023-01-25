@@ -101,14 +101,32 @@ public class SudokuPanel extends JPanel {
 					int textWidth = (int) f.getStringBounds(puzzle.getValue(row, col), fContext).getWidth();
 					int textHeight = (int) f.getStringBounds(puzzle.getValue(row, col), fContext).getHeight();
 					g2d.drawString(puzzle.getValue(row, col), (col*slotWidth)+((slotWidth/2)-(textWidth/2)), (row*slotHeight)+((slotHeight/2)+(textHeight/2)));
+
+					//highlight the selected number
+					if(puzzle.getValue(row,col) == puzzle.getValue(currentlySelectedRow,currentlySelectedCol))
+					{
+						g2d.setColor(new Color(0.0f,0.0f,1.0f,0.1f));
+						g2d.fillRect(col * slotWidth,row * slotHeight ,slotWidth,slotHeight);
+					}
+
 				}
 			}
 		}
 		if(currentlySelectedCol != -1 && currentlySelectedRow != -1) {
 			g2d.setColor(new Color(61,90,158,80));		//selected grid color
 			g2d.fillRect(currentlySelectedCol * slotWidth,currentlySelectedRow * slotHeight,slotWidth,slotHeight);
+
+			//highlight the selected row
+			g2d.setColor(new Color(0.0f,0.0f,1.0f,0.1f));
+			g2d.fillRect(0, currentlySelectedRow * slotHeight, usedWidth, slotHeight);
+
+			//highlight the selected column
+			g2d.setColor(new Color(0.0f,0.0f,1.0f,0.1f));
+			g2d.fillRect(currentlySelectedCol * slotWidth,0, slotWidth, usedHeight);
+
+
 		}
-		this.requestFocusInWindow();
+
 	}
 	
 	public void messageFromNumActionListener(String buttonValue) {
@@ -142,6 +160,24 @@ public class SudokuPanel extends JPanel {
 		if (puzzle.isSlotMutable(currentlySelectedRow, currentlySelectedCol)) {
 			puzzle.makeSlotEmpty(currentlySelectedRow, currentlySelectedCol);
 			repaint();
+		}
+	}
+
+	public void undoAction() {
+		if (ActionHistory.canUndo()) {
+			clearSelectedSlot();
+			ActionHistory.Action lastAction;
+			lastAction = ActionHistory.popUndoStack();
+			currentlySelectedRow = lastAction.getRow();
+			currentlySelectedCol = lastAction.getColumn();
+			repaint();
+		}
+	}
+
+	public class UndoListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			undoAction();
 		}
 	}
 	
@@ -225,6 +261,10 @@ public class SudokuPanel extends JPanel {
 				if (currentlySelectedRow < puzzle.getNumRows() - 1) {
 					currentlySelectedRow++;
 					repaint();
+				}
+			} else if (e.getKeyCode() == KeyEvent.VK_Z) {
+				if (e.isControlDown()){
+					undoAction();
 				}
 			}
 		}
