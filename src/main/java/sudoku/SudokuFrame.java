@@ -18,7 +18,7 @@ public class SudokuFrame extends JFrame {
 	public SudokuFrame() {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setTitle("Sudoku");
-		this.setMinimumSize(new Dimension(800,600));
+		this.setMinimumSize(new Dimension(800,700));
 
 		Image icon = Toolkit.getDefaultToolkit().getImage("sudoku.png");
 		this.setIconImage(icon);
@@ -40,7 +40,7 @@ public class SudokuFrame extends JFrame {
 		windowPanel.setBackground(new Color(244, 241,222));
 
 		rightPanel = new JPanel();
-		rightPanel.setPreferredSize(new Dimension(150,500));
+		rightPanel.setPreferredSize(new Dimension(150,410));
 		rightPanel.setBackground(new Color(244, 241,222));
 
 		timerPanel = new SudokuTimer();
