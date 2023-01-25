@@ -67,11 +67,14 @@ public class SudokuPuzzle {
 		return this.VALIDVALUES;
 	}
 	
-	public void makeMove(int row,int col,String value,boolean isMutable) {
+	public boolean makeMove(int row,int col,String value,boolean isMutable) {
 		if(this.isValidValue(value) && this.isValidMove(row,col,value) && this.isSlotMutable(row, col)) {
 			this.board[row][col] = value;
 			this.mutable[row][col] = isMutable;
 			this.actionHistory.pushUndoStack(new ActionHistory.Action(row, col, value));
+			return true;
+		} else {
+			return this.board[row][col].equals(value);
 		}
 	}
 	

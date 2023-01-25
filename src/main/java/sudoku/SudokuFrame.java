@@ -58,12 +58,24 @@ public class SudokuFrame extends JFrame {
 
 		JButton clearButton = new JButton("Clear");
 
+		JPanel buttonPanel = new JPanel();
+
+		JButton undoButton = new JButton("Undo");
+		undoButton.addActionListener(new UndoListener());
+
+		JButton clearButton = new JButton("Clear");
+		clearButton.addActionListener(new ClearListener());
+
+		JButton clearAllButton = new JButton("Clear All");
+		clearAllButton.addActionListener(new ClearAllListener());
+
 		buttonPanel.add(clearButton);
 		buttonPanel.add(undoButton);
 
 		rightPanel.add(timerPanel);
 		rightPanel.add(buttonPanel);
- 		rightPanel.add(buttonSelectionPanel);
+		rightPanel.add(clearAllButton);
+		rightPanel.add(buttonSelectionPanel);
 
 		sPanel = new SudokuPanel(this, timerPanel);
 		sPanel.setBackground(new Color(244, 241,222));
@@ -72,13 +84,18 @@ public class SudokuFrame extends JFrame {
 		windowPanel.add(rightPanel);
 		this.add(windowPanel);
 
-		newGameDialog();
+		if (!newGameDialog()) {
+			System.exit(0);
+		}
 	}
 
-	public void newGameDialog() {
+	public boolean newGameDialog() {
 		dialog = new SudokuNewGameDialog(this);
+		if (dialog.isCancelled())
+			return false;
 		rebuildInterface(dialog.getPuzzleType(), dialog.getDifficulty());
 		timerPanel.resetTimer();
+		return true;
 	}
 	
 
@@ -101,7 +118,9 @@ public class SudokuFrame extends JFrame {
 	private class NewGameListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			newGameDialog();
+			if (newGameDialog()) {
+				timerPanel.resetTimer();
+			}
 		}
 	}
 
@@ -109,6 +128,20 @@ public class SudokuFrame extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			sPanel.undoAction();
+		}
+	}
+
+	private class ClearListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			sPanel.clearAction();
+		}
+	}
+
+	private class ClearAllListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			sPanel.clearAllAction();
 		}
 	}
 	
